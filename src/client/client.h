@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <sys/ioctl.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 
@@ -30,5 +31,40 @@
 
 // Number Constants
 #define HARMONY_BUFFER_SIZE 2048
+#define HARMONY_QUEUE_SIZE 128
+
+// client.c
+void print_error(int err, char *msg);
+
+// command.c
+int check_command(char *buff);
+void run_command(int cmd);
+void harmony_exit();
+
+// parse.c
+void trim(char *p);
+char *get_input(char *buff);
+
+// queue.c
+struct queue_node {
+    char *val;
+    struct queue_node *next;
+};
+struct harmony_queue {
+    int size;
+    struct queue_node *front, *back;
+};
+struct queue_node *new_node(char *msg);
+struct harmony_queue *create_queue();
+void queue_push(struct harmony_queue *Q, char *msg);
+void queue_pop(struct harmony_queue *Q);
+void update_queue(struct harmony_queue *Q, char *msg);
+
+// screen.c
+#define max(a, b) (a >= b ? a : b)
+#define min(a, b) (a <= b ? a : b)
+void clear_screen();
+struct winsize *get_terminal_size();
+void print_screen(struct harmony_queue *Q);
 
 #endif
