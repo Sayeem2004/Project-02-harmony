@@ -1,0 +1,8 @@
+khanMoh -- 2022-01-06 08:15
+- Added initial commit of README.md and .gitignore
+
+khanMoh -- 2022-01-06 08:30 
+- Created basic structure of the project
+  - Initial source files
+  - Working makefile
+ 
